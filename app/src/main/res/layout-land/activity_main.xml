@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="mx.ipn.cic.geo.calculadora_a18.MainActivity">
+
+    <TextView
+        android:id="@+id/txtExpresion"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/black"
+        android:gravity="center_vertical"
+        android:text="0"
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/white"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnLimpiar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@color/colorBtnDig"
+            android:text="BORRAR"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpDivision"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:background="@color/colorBtnOp"
+            android:text="/"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpPotencia"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:background="@color/colorBtnOp"
+            android:text="^"
+            android:textSize="30sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/btnDigSiete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="7"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnDigOcho"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="8"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnDigNueve"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="9"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpMult"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="x"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpParIzq"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="("
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpParDer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text=")"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDigCuatro"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="4"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnDigCinco"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="5"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnDigSeis"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="6"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpResta"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="-"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpSeno"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="SEN"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnOpCoseno"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="COS"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDigUno"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="1"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnDigDos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="2"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnDigTres"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="3"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpSuma"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="+"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpTangente"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="TAN"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnOpCotangente"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="CTG"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDigCero"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/colorBtnDig"
+            android:text="0"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpPunto"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnDig"
+            android:text="."
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpIgual"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="="
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btnOpSecante"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="SEC"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnOpCosecante"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBtnOp"
+            android:text="CSC"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
