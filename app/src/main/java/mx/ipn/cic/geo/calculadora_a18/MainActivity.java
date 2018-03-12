@@ -1,10 +1,17 @@
 package mx.ipn.cic.geo.calculadora_a18;
 
+import android.app.Application;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /*
@@ -303,8 +310,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 */
 
 // Metodo 3. Usando el diseñador.
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     TextView textView;
+    private ArrayList<String> expression = new ArrayList<String>(){
+        @Override
+        public String toString() {
+            String out = new String();
+            for(int i=0; i<this.size(); i++){
+                out += this.get( i );
+            }
+            return out;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -312,10 +329,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         this.textView = this.findViewById(R.id.txtExpresion);
+
+        if( this.expression.size() == 0 ){
+            this.expression.add( "0" );
+        }
+        textView.setText( this.expression.toString() );
     }
+
 
     @Override
     public void onClick(View v) {
-        textView.setText(textView.getText() + ((Button)v).getText().toString());
+
+        String newValueButton = ((Button)v).getText().toString();
+
+        if( newValueButton.compareTo( this.getResources().getString(R.string.equeal) )==0 ){
+            String result = this.getResult();
+            this.expression.clear();
+            this.expression.add( result );
+        }else if( newValueButton.compareTo( this.getResources().getString(R.string.delete) )==0 ){
+            String elementRemoved = this.expression.remove( this.expression.size()-1 );
+
+            if( elementRemoved.length()>1 ){
+                String str = new String();
+                for(int i=0; i<elementRemoved.length()-1; i++){
+                    str = str+elementRemoved.charAt(i);
+                }
+                this.expression.add( str );
+            }
+
+            if( this.expression.size()==0 ) {
+                this.expression.add( "0" );
+            }
+        }else{
+            if( this.expression.toString().compareTo( this.getResources().getString(R.string.zero) )==0 ) {
+                this.expression.clear();
+                this.expression.add( newValueButton );
+            }else{
+                int size = this.expression.size();
+                if( size>0 ){
+                    String lastElement = this.expression.remove(size-1);
+                    if( Result.operators.contains(lastElement)||Result.operators.contains(newValueButton) ){
+                        this.expression.add( lastElement );
+                        this.expression.add( newValueButton );
+                    }else{
+                        this.expression.add( lastElement+newValueButton );
+                    }
+                }else {
+                    this.expression.add(newValueButton);
+                }
+            }
+        }
+        textView.setText( this.expression.toString() );
     }
+
+    private String getResult(){
+        Result.init( this );
+        String result = Result.getAnswer( this.expression.toString() );
+        return result;
+    }
+
+
 }
