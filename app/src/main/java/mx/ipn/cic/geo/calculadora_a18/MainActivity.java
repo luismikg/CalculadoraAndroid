@@ -408,7 +408,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
             }
-            for (i=i; i>=0; i--){
+            for (; i>=0; i--){
                 auxFraccion = strFraccion.charAt(i) + auxFraccion;
             }
             result = arraResult[0]+"."+auxFraccion;
