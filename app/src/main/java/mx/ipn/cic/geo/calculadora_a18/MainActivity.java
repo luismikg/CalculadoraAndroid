@@ -372,7 +372,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         this.expression.add( lastElement );
                         this.expression.add( newValueButton );
                     }else{
-                        this.expression.add( lastElement+newValueButton );
+                        if( newValueButton.compareTo(".")==0 ){
+                            if( lastElement.indexOf(".")==-1 ){
+                                this.expression.add(lastElement + newValueButton);
+                            }else {
+                                this.expression.add(lastElement);
+                            }
+                        }else {
+                            this.expression.add(lastElement + newValueButton);
+                        }
                     }
                 }else {
                     this.expression.add(newValueButton);
@@ -385,8 +393,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String getResult(){
         Result.init( this );
         String result = Result.getAnswer( this.expression.toString() );
+
+        String[] arraResult = result.split("\\.");
+        double fraction = Double.parseDouble( arraResult[1] );
+        if( fraction==0 ){
+            result = arraResult[0];
+        } else{
+            String strFraccion = arraResult[1];
+            String auxFraccion = new String();
+
+            int i;
+            for (i=strFraccion.length()-1; i>=0; i--){
+                if( strFraccion.charAt(i) != '0' ){
+                    break;
+                }
+            }
+            for (i=i; i>=0; i--){
+                auxFraccion = strFraccion.charAt(i) + auxFraccion;
+            }
+            result = arraResult[0]+"."+auxFraccion;
+        }
         return result;
     }
-
-
 }

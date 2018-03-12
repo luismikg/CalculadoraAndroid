@@ -151,19 +151,19 @@ public class Result {
         switch ( operator) {
             case "add":case "+":
 
-                return (Double.parseDouble(number1) + Double.parseDouble(number2)) + new String();
+                return String.format("%.9f", Double.parseDouble(number1) + Double.parseDouble(number2));
             case "substract":case "-":
 
-                return (Double.parseDouble(number1) - Double.parseDouble(number2)) + new String();
+                return String.format("%.9f", Double.parseDouble(number1) - Double.parseDouble(number2));
             case "multiply":case "*":
 
-                return (Double.parseDouble(number1) * Double.parseDouble(number2)) + new String();
+                return String.format("%.9f", Double.parseDouble(number1) * Double.parseDouble(number2));
             case "divide":case "/":
 
-                return (Double.parseDouble(number1) / Double.parseDouble(number2)) + new String();
+                return String.format("%.9f", Double.parseDouble(number1) / Double.parseDouble(number2));
             case "power":case "^":
 
-                return (Math.pow(Double.parseDouble(number1), Double.parseDouble(number2)) + new String());
+                return String.format("%.9f", Math.pow(Double.parseDouble(number1), Double.parseDouble(number2)));
         }
         return "0";
     }
