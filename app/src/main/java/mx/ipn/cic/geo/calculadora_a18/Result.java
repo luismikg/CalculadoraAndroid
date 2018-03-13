@@ -21,14 +21,13 @@ public class Result {
     private static Result sigleton;
 
     public static final ArrayList<String> operators = new ArrayList<>(Arrays.asList("+","-","*","/","^" ));
+    public static final ArrayList<String> numbers = new ArrayList<>(Arrays.asList("0","1","2","3","4","5","6","7","8","9"));
 
     private Stack<String> lstExpression;
     private Stack<String> lstStack;
     private Stack<String> lstSuffixExpression;
 
-    private String expression;
-    private Activity father;
-
+    private String strExpression;
 
     public Result(){
         this.lstExpression        = new Stack<String>();
@@ -36,65 +35,73 @@ public class Result {
         this.lstSuffixExpression  = new Stack<String>();
     }
 
-    public static void init( Activity father ){
-        Result.getResult().father = father;
+    public static void init(){
         Result.sigleton=null;
     }
 
-    private static Result getResult(){
+    public static Result getResult(){
         if( Result.sigleton==null ) Result.sigleton = new Result();
         return Result.sigleton;
     }
 
     public static void setExpression( String expression ){
-        Result.getResult().expression = expression;
+        Result.getResult().strExpression = expression;
     }
 
-    public static String getAnswer( String expression ){
+    public static String getAnswer( String expression ) throws Exception {
         Result.setExpression( expression );
-        return Result.getAnswer();
+        try {
+            return Result.getAnswer();
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
     }
 
-    public static String getAnswer(){
-        Result.getResult().initExpression();
-        Result.getResult().initSuffixExpression();
+    public static String getAnswer() throws Exception {
+        try {
+            Result.getResult().initExpression();
+            Result.getResult().initSuffixExpression();
 
-        for (int i = Result.getResult().lstSuffixExpression.size() - 1; i >= 0; i--) {
-            Result.getResult().lstExpression.push( Result.getResult().lstSuffixExpression.elementAt(i) );
-        }
-
-        //Algoritmo de Evaluación Postfija o sufija
-        while (!Result.getResult().lstExpression.isEmpty()) {
-            if (Result.operators.contains("" + Result.getResult().lstExpression.peek())) {
-
-                String operator = Result.getResult().lstExpression.pop();
-                String number2 = Result.getResult().lstStack.pop();
-                String number1 = Result.getResult().lstStack.pop();
-
-                String result = Result.getResult().exec( operator, number1, number2 );
-
-                Result.getResult().lstStack.push(result);
-            }else {
-                Result.getResult().lstStack.push(Result.getResult().lstExpression.pop());
+            for (int i = Result.getResult().lstSuffixExpression.size() - 1; i >= 0; i--) {
+                Result.getResult().lstExpression.push(Result.getResult().lstSuffixExpression.elementAt(i));
             }
-        }
 
-        return Result.getResult().lstStack.pop();
+            //Algoritmo de Evaluación Postfija o sufija
+            while (!Result.getResult().lstExpression.isEmpty()) {
+                if (Result.operators.contains("" + Result.getResult().lstExpression.peek())) {
+
+                    String operator = Result.getResult().lstExpression.pop();
+                    String number2 = Result.getResult().lstStack.pop();
+                    String number1 = Result.getResult().lstStack.pop();
+
+                    String result = Result.getResult().exec(operator, number1, number2);
+
+                    Result.getResult().lstStack.push(result);
+                } else {
+                    Result.getResult().lstStack.push(Result.getResult().lstExpression.pop());
+                }
+            }
+
+            return Result.getResult().lstStack.pop();
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     private void initExpression(){
         String str = new String();
         //Deja espacios entre operadores
-        for (int i = 0; i < Result.getResult().expression.length(); i++) {
-            if (Result.operators.contains("" + Result.getResult().expression.charAt(i))) {
-                str += " " + Result.getResult().expression.charAt(i) + " ";
+        for (int i = 0; i < Result.getResult().strExpression.length(); i++) {
+            if (Result.operators.contains("" + Result.getResult().strExpression.charAt(i))) {
+                str += " " + Result.getResult().strExpression.charAt(i) + " ";
             }else{
-                str += Result.getResult().expression.charAt(i);
+                str += Result.getResult().strExpression.charAt(i);
             }
         }
-        Result.getResult().expression = str;
+        Result.getResult().strExpression = str;
 
-        String[] arrExpression = Result.getResult().expression.split(" ");
+        String[] arrExpression = Result.getResult().strExpression.split(" ");
 
         //Covertimos la entrada en una pila
         for (int i=arrExpression.length-1; i>=0; i--){
@@ -102,7 +109,7 @@ public class Result {
         }
     }
 
-    private void initSuffixExpression(){
+    private void initSuffixExpression() throws Exception {
 
         try {
             while (!Result.getResult().lstExpression.isEmpty()) {
@@ -140,8 +147,7 @@ public class Result {
             }
         }catch (Exception e){
             //Error
-            Toast toast = Toast.makeText(Result.this.father, "Error en la expreción", Toast.LENGTH_SHORT);
-            toast.show();
+            throw new Exception("Error al convertir la expreciona a sufijo");
         }
     }
 

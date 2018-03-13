@@ -32,8 +32,9 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:background="@color/colorBtnDig"
-            android:text="BORRAR"
-            android:textSize="30sp" />
+            android:text="@string/delete"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpDivision"
@@ -41,8 +42,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:background="@color/colorBtnOp"
-            android:text="/"
-            android:textSize="30sp" />
+            android:text="@string/divide"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpPotencia"
@@ -50,7 +52,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:background="@color/colorBtnOp"
-            android:text="^"
+            android:text="@string/power"
             android:textSize="30sp"/>
 
     </LinearLayout>
@@ -68,8 +70,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="7"
-            android:textSize="30sp" />
+            android:text="@string/seven"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnDigOcho"
@@ -77,8 +80,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="8"
-            android:textSize="30sp" />
+            android:text="@string/eight"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnDigNueve"
@@ -86,8 +90,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="9"
-            android:textSize="30sp" />
+            android:text="@string/nine"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpMult"
@@ -95,8 +100,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
-            android:text="x"
-            android:textSize="30sp" />
+            android:text="@string/multiply"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpParIzq"
@@ -105,7 +111,8 @@
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
             android:text="("
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpParDer"
@@ -114,7 +121,8 @@
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
             android:text=")"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:onClick="onClick"/>
     </LinearLayout>
 
     <LinearLayout
@@ -129,8 +137,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="4"
-            android:textSize="30sp" />
+            android:text="@string/four"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnDigCinco"
@@ -138,8 +147,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="5"
-            android:textSize="30sp" />
+            android:text="@string/five"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnDigSeis"
@@ -147,8 +157,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="6"
-            android:textSize="30sp" />
+            android:text="@string/six"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpResta"
@@ -156,8 +167,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
-            android:text="-"
-            android:textSize="30sp" />
+            android:text="@string/minus"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpSeno"
@@ -166,7 +178,8 @@
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
             android:text="SEN"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpCoseno"
@@ -175,7 +188,8 @@
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
             android:text="COS"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:onClick="onClick"/>
     </LinearLayout>
 
     <LinearLayout
@@ -190,8 +204,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="1"
-            android:textSize="30sp" />
+            android:text="@string/one"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnDigDos"
@@ -199,8 +214,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="2"
-            android:textSize="30sp" />
+            android:text="@string/thow"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnDigTres"
@@ -208,8 +224,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="3"
-            android:textSize="30sp" />
+            android:text="@string/three"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpSuma"
@@ -217,8 +234,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
-            android:text="+"
-            android:textSize="30sp" />
+            android:text="@string/plus"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpTangente"
@@ -227,7 +245,8 @@
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
             android:text="TAN"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpCotangente"
@@ -252,8 +271,9 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@color/colorBtnDig"
-            android:text="0"
-            android:textSize="30sp" />
+            android:text="@string/zero"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpPunto"
@@ -261,8 +281,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnDig"
-            android:text="."
-            android:textSize="30sp" />
+            android:text="@string/point"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpIgual"
@@ -270,8 +291,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
-            android:text="="
-            android:textSize="30sp" />
+            android:text="@string/equeal"
+            android:textSize="30sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpSecante"
@@ -280,7 +302,8 @@
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
             android:text="SEC"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/btnOpCosecante"
@@ -289,7 +312,8 @@
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
             android:text="CSC"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:onClick="onClick"/>
     </LinearLayout>
 
 

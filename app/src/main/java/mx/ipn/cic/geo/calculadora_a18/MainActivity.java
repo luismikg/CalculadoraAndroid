@@ -1,17 +1,13 @@
 package mx.ipn.cic.geo.calculadora_a18;
 
-import android.app.Application;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /*
@@ -312,16 +308,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 // Metodo 3. Usando el diseñador.
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     TextView textView;
-    private ArrayList<String> expression = new ArrayList<String>(){
-        @Override
-        public String toString() {
-            String out = new String();
-            for(int i=0; i<this.size(); i++){
-                out += this.get( i );
-            }
-            return out;
-        }
-    };
+    private static Boolean anOperationHasJustBeenDone = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -330,70 +318,138 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.textView = this.findViewById(R.id.txtExpresion);
 
-        if( this.expression.size() == 0 ){
-            this.expression.add( "0" );
+        if( ExpressionClass.expression.size() == 0 ){
+            ExpressionClass.expression.add( "0" );
         }
-        textView.setText( this.expression.toString() );
+        textView.setText( ExpressionClass.expression.toString() );
     }
 
 
     @Override
     public void onClick(View v) {
 
-        String newValueButton = ((Button)v).getText().toString();
+        String newValue = ((Button)v).getText().toString();
 
-        if( newValueButton.compareTo( this.getResources().getString(R.string.equeal) )==0 ){
-            String result = this.getResult();
-            this.expression.clear();
-            this.expression.add( result );
-        }else if( newValueButton.compareTo( this.getResources().getString(R.string.delete) )==0 ){
-            String elementRemoved = this.expression.remove( this.expression.size()-1 );
-
-            if( elementRemoved.length()>1 ){
-                String str = new String();
-                for(int i=0; i<elementRemoved.length()-1; i++){
-                    str = str+elementRemoved.charAt(i);
-                }
-                this.expression.add( str );
-            }
-
-            if( this.expression.size()==0 ) {
-                this.expression.add( "0" );
-            }
-        }else{
-            if( this.expression.toString().compareTo( this.getResources().getString(R.string.zero) )==0 ) {
-                this.expression.clear();
-                this.expression.add( newValueButton );
-            }else{
-                int size = this.expression.size();
-                if( size>0 ){
-                    String lastElement = this.expression.remove(size-1);
-                    if( Result.operators.contains(lastElement)||Result.operators.contains(newValueButton) ){
-                        this.expression.add( lastElement );
-                        this.expression.add( newValueButton );
-                    }else{
-                        if( newValueButton.compareTo(".")==0 ){
-                            if( lastElement.indexOf(".")==-1 ){
-                                this.expression.add(lastElement + newValueButton);
-                            }else {
-                                this.expression.add(lastElement);
-                            }
-                        }else {
-                            this.expression.add(lastElement + newValueButton);
-                        }
-                    }
-                }else {
-                    this.expression.add(newValueButton);
-                }
+        if( MainActivity.anOperationHasJustBeenDone ){
+            MainActivity.anOperationHasJustBeenDone = false;
+            if( Result.numbers.contains( newValue )||newValue.equals(".") ){
+                ExpressionClass.expression.clear();
+                ExpressionClass.expression.add( "0" );
+                this.textView.setText( ExpressionClass.expression.toString() );
             }
         }
-        textView.setText( this.expression.toString() );
+
+        this.checknewValue( newValue );
+        textView.setText( ExpressionClass.expression.toString() );
+
+    }
+
+    private void checknewValue( String newValue ) {
+
+        //Simbolos
+        if( newValue.equals("=") ){
+            String result = this.getResult();
+            ExpressionClass.expression.clear();
+            ExpressionClass.expression.add( result );
+            return;
+        }
+        if( newValue.equals( this.getResources().getString(R.string.delete) ) ){
+            String elementToRemoved = ExpressionClass.expression.remove( ExpressionClass.expression.size()-1 );
+
+            if( elementToRemoved.length()>1 ){
+                String str = new String();
+                for(int i=0; i<elementToRemoved.length()-1; i++){
+                    str = str+elementToRemoved.charAt(i);
+                }
+                ExpressionClass.expression.add( str );
+            }
+            if( ExpressionClass.expression.size()==0 ) {
+                ExpressionClass.expression.add( "0" );
+            }
+            return;
+        }
+        if( newValue.equals(".") ){
+            String lastElement = ExpressionClass.expression.remove(ExpressionClass.expression.size()-1 );
+            if( this.isNumber(lastElement) ){
+                if( lastElement.indexOf(".")==-1 ){
+                    ExpressionClass.expression.add(lastElement + newValue);
+                }
+            }else{
+                ExpressionClass.expression.add(lastElement);
+                ExpressionClass.expression.add("0"+newValue);
+            }
+            return;
+        }
+        // solo +, -, /, *, ^
+        if( Result.operators.contains(newValue) ){
+            String lastElement = ExpressionClass.expression.remove(ExpressionClass.expression.size()-1 );
+            if( Result.operators.contains(lastElement) ){
+                ExpressionClass.expression.add(newValue);
+            }else{
+                ExpressionClass.expression.add(lastElement);
+                ExpressionClass.expression.add(newValue);
+            }
+            return;
+        }
+
+        //Numeros
+        // solo 0,1,2,3,4,5,6,7,8,9
+        if( Result.numbers.contains(newValue) ){
+            int size = ExpressionClass.expression.size();
+
+            switch (size){
+                case 1:
+                    String lastElement = ExpressionClass.expression.remove(ExpressionClass.expression.size()-1 );
+                    if( lastElement.equals("0") ){
+                        ExpressionClass.expression.add( newValue );
+                    }else {
+                        if( this.isNumber(lastElement) ){
+                            ExpressionClass.expression.add( lastElement+newValue );
+                        }else {
+                            ExpressionClass.expression.add( lastElement );
+                            ExpressionClass.expression.add( newValue );
+                        }
+                    }
+                    break;
+                default:
+                    lastElement = ExpressionClass.expression.remove(ExpressionClass.expression.size()-1 );
+                    if( this.isNumber(lastElement) ){
+                        ExpressionClass.expression.add( lastElement+newValue );
+                    }else {
+                        ExpressionClass.expression.add( lastElement );
+                        ExpressionClass.expression.add( newValue );
+                    }
+            }
+            return;
+        }
+    }
+
+    private boolean isNumber(String element) {
+        try {
+            Double.parseDouble( element );
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     private String getResult(){
-        Result.init( this );
-        String result = Result.getAnswer( this.expression.toString() );
+        String result = ExpressionClass.expression.toString();
+        try {
+            Result.init();
+            result = Result.getAnswer(ExpressionClass.expression.toString());
+            result = this.depurarResult(result);
+            MainActivity.anOperationHasJustBeenDone = true;
+        }catch (Exception e){
+            //Error
+            Toast toast = Toast.makeText(this, "Error en la expreción", Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
+        return result;
+    }
+
+    private String depurarResult(String result) {
         String[] arraResult = result.split("\\.");
         double fraction = Double.parseDouble( arraResult[1] );
         if( fraction==0 ){

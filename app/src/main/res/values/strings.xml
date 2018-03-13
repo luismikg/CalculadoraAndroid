@@ -17,10 +17,11 @@
 
     <string name="equeal" translatable="false">=</string>
     <string name="point" translatable="false">.</string>
-    <string name="add" translatable="false">+</string>
-    <string name="subtract" translatable="false">-</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="minus" translatable="false">-</string>
     <string name="multiply" translatable="false">*</string>
     <string name="divide" translatable="false">/</string>
+    <string name="power" translatable="false">^</string>
 
 
 
