@@ -349,8 +349,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Simbolos
         if( newValue.equals("=") ){
             String result = this.getResult();
-            ExpressionClass.expression.clear();
-            ExpressionClass.expression.add( result );
             return;
         }
         if( newValue.equals( this.getResources().getString(R.string.delete) ) ){
@@ -373,6 +371,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if( this.isNumber(lastElement) ){
                 if( lastElement.indexOf(".")==-1 ){
                     ExpressionClass.expression.add(lastElement + newValue);
+                }else{
+                    ExpressionClass.expression.add(lastElement);
                 }
             }else{
                 ExpressionClass.expression.add(lastElement);
@@ -380,11 +380,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return;
         }
+
+        if( newValue.equals(")") ){
+            int size = ExpressionClass.expression.size();
+            switch (size){
+                case 1:
+                    String lastElement = ExpressionClass.expression.remove(size-1 );
+                    if( lastElement.equals("0") ){
+                        ExpressionClass.expression.add( newValue );
+                    }else {
+                        ExpressionClass.expression.add( lastElement );
+                        ExpressionClass.expression.add( newValue );
+                    }
+                    break;
+                default:
+                    lastElement = ExpressionClass.expression.remove(size-1 );
+                    ExpressionClass.expression.add( lastElement );
+                    ExpressionClass.expression.add( newValue );
+            }
+            return;
+        }
+        if( newValue.equals("(") ){
+            int size = ExpressionClass.expression.size();
+            switch (size){
+                case 1:
+                    String lastElement = ExpressionClass.expression.remove(size-1 );
+                    if( lastElement.equals("0") ){
+                        ExpressionClass.expression.add( newValue );
+                    }else {
+                        ExpressionClass.expression.add( lastElement );
+                        ExpressionClass.expression.add( newValue );
+                    }
+                    break;
+                default:
+                    lastElement = ExpressionClass.expression.remove(size-1 );
+                    ExpressionClass.expression.add( lastElement );
+                    ExpressionClass.expression.add( newValue );
+            }
+            return;
+        }
+
+        if( newValue.toLowerCase().equals("sen") ){
+            int size = ExpressionClass.expression.size();
+            switch (size){
+                case 1:
+                    String lastElement = ExpressionClass.expression.remove(size-1 );
+                    if( lastElement.equals("0") ){
+                        ExpressionClass.expression.add( newValue );
+                    }else {
+                        ExpressionClass.expression.add( lastElement );
+                        ExpressionClass.expression.add( newValue );
+                    }
+                    break;
+                default:
+                    lastElement = ExpressionClass.expression.remove(size-1 );
+                    ExpressionClass.expression.add( lastElement );
+                    ExpressionClass.expression.add( newValue );
+            }
+            return;
+        }
+
         // solo +, -, /, *, ^
         if( Result.operators.contains(newValue) ){
             String lastElement = ExpressionClass.expression.remove(ExpressionClass.expression.size()-1 );
             if( Result.operators.contains(lastElement) ){
-                ExpressionClass.expression.add(newValue);
+                if( lastElement.equals("(")||lastElement.equals(")") ){
+                    ExpressionClass.expression.add(lastElement);
+                    ExpressionClass.expression.add(newValue);
+                }else {
+                    ExpressionClass.expression.add(newValue);
+                }
             }else{
                 ExpressionClass.expression.add(lastElement);
                 ExpressionClass.expression.add(newValue);
@@ -440,6 +505,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             result = Result.getAnswer(ExpressionClass.expression.toString());
             result = this.depurarResult(result);
             MainActivity.anOperationHasJustBeenDone = true;
+            ExpressionClass.expression.clear();
+            ExpressionClass.expression.add( result );
         }catch (Exception e){
             //Error
             Toast toast = Toast.makeText(this, "Error en la expreción", Toast.LENGTH_SHORT);

@@ -21,7 +21,9 @@
     <string name="minus" translatable="false">-</string>
     <string name="multiply" translatable="false">*</string>
     <string name="divide" translatable="false">/</string>
-    <string name="power" translatable="false">^</string>
+    <string name="power" translatable="false">\^</string>
+
+    <string name="sen" translatable="false">sen</string>
 
 
 

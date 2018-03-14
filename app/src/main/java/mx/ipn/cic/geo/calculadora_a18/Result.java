@@ -20,7 +20,7 @@ public class Result {
 
     private static Result sigleton;
 
-    public static final ArrayList<String> operators = new ArrayList<>(Arrays.asList("+","-","*","/","^" ));
+    public static final ArrayList<String> operators = new ArrayList<>(Arrays.asList("+","-","*","/","^","(",")","sen" ));
     public static final ArrayList<String> numbers = new ArrayList<>(Arrays.asList("0","1","2","3","4","5","6","7","8","9"));
 
     private Stack<String> lstExpression;
@@ -93,8 +93,17 @@ public class Result {
         String str = new String();
         //Deja espacios entre operadores
         for (int i = 0; i < Result.getResult().strExpression.length(); i++) {
-            if (Result.operators.contains("" + Result.getResult().strExpression.charAt(i))) {
-                str += " " + Result.getResult().strExpression.charAt(i) + " ";
+            String element = "" + Result.getResult().strExpression.charAt(i);
+            if (Result.operators.contains( element )) {
+                if( element.equals("(") ){
+                    str += Result.getResult().strExpression.charAt(i) + " ";
+                }else {
+                    if( element.equals(")")){
+                        str += " " + Result.getResult().strExpression.charAt(i);
+                    }else {
+                        str += " " + Result.getResult().strExpression.charAt(i) + " ";
+                    }
+                }
             }else{
                 str += Result.getResult().strExpression.charAt(i);
             }
@@ -118,7 +127,7 @@ public class Result {
 
                 switch (priority) {
                     case 1:
-                        Result.getResult().lstStack.push(element);
+                        Result.getResult().lstStack.push( Result.getResult().lstExpression.pop() );
                         break;
                     case 3:
                     case 4:
@@ -129,6 +138,9 @@ public class Result {
                             }
                         }
 
+                        Result.getResult().lstStack.push(Result.getResult().lstExpression.pop());
+                        break;
+                    case 5:case 6:
                         Result.getResult().lstStack.push(Result.getResult().lstExpression.pop());
                         break;
                     case 2:
@@ -182,7 +194,8 @@ public class Result {
 
             int priority = Priority.maxPriority;
 
-            if( element.equals("^") ){ priority = 5;}
+            if( element.equals("sen") ){ priority = 5;}
+            else if( element.equals("^") ){ priority = 5;}
             else if( element.equals("*") || element.equals("/")){ priority = 4;}
             else if( element.equals("+") || element.equals("-")){ priority = 3;}
             else if( element.equals(")") ){ priority = 2;}
