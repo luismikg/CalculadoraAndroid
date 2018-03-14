@@ -20,6 +20,7 @@ public class Result {
 
     private static Result sigleton;
 
+    public static final ArrayList<String> operatorsTrigonometric = new ArrayList<>(Arrays.asList("sen","cos","tan","ctg","sec","csc"));
     public static final ArrayList<String> operators = new ArrayList<>(Arrays.asList("+","-","*","/","^","(",")","sen" ));
     public static final ArrayList<String> numbers = new ArrayList<>(Arrays.asList("0","1","2","3","4","5","6","7","8","9"));
 
@@ -27,7 +28,7 @@ public class Result {
     private Stack<String> lstStack;
     private Stack<String> lstSuffixExpression;
 
-    private String strExpression;
+    private ArrayList<String> expression;
 
     public Result(){
         this.lstExpression        = new Stack<String>();
@@ -44,11 +45,11 @@ public class Result {
         return Result.sigleton;
     }
 
-    public static void setExpression( String expression ){
-        Result.getResult().strExpression = expression;
+    public static void setExpression( ArrayList<String> expression ){
+        Result.getResult().expression = expression;
     }
 
-    public static String getAnswer( String expression ) throws Exception {
+    public static String getAnswer( ArrayList<String> expression ) throws Exception {
         Result.setExpression( expression );
         try {
             return Result.getAnswer();
@@ -69,13 +70,22 @@ public class Result {
 
             //Algoritmo de Evaluación Postfija o sufija
             while (!Result.getResult().lstExpression.isEmpty()) {
-                if (Result.operators.contains("" + Result.getResult().lstExpression.peek())) {
+                String element = Result.getResult().lstExpression.peek();
+                if (Result.operators.contains( element ) || Result.operatorsTrigonometric.contains( element )) {
+
+                    String result = new String();
 
                     String operator = Result.getResult().lstExpression.pop();
-                    String number2 = Result.getResult().lstStack.pop();
-                    String number1 = Result.getResult().lstStack.pop();
+                    if( Result.operatorsTrigonometric.contains( element )){
+                        String number1 = Result.getResult().lstStack.pop();
+                        result = Result.getResult().exec(operator, number1, "");
+                    }else {
+                        String number2 = Result.getResult().lstStack.pop();
+                        String number1 = Result.getResult().lstStack.pop();
+                        result = Result.getResult().exec(operator, number1, number2);
+                    }
 
-                    String result = Result.getResult().exec(operator, number1, number2);
+
 
                     Result.getResult().lstStack.push(result);
                 } else {
@@ -92,25 +102,24 @@ public class Result {
     private void initExpression(){
         String str = new String();
         //Deja espacios entre operadores
-        for (int i = 0; i < Result.getResult().strExpression.length(); i++) {
-            String element = "" + Result.getResult().strExpression.charAt(i);
-            if (Result.operators.contains( element )) {
-                if( element.equals("(") ){
-                    str += Result.getResult().strExpression.charAt(i) + " ";
+        for (int i = 0; i < Result.getResult().expression.size(); i++) {
+            String element = Result.getResult().expression.get(i);
+            if (Result.operators.contains( element ) || Result.operatorsTrigonometric.contains( element )) {
+                if( element.equals("(") || Result.operatorsTrigonometric.contains(element) ){
+                    str += Result.getResult().expression.get(i) + " ";
                 }else {
                     if( element.equals(")")){
-                        str += " " + Result.getResult().strExpression.charAt(i);
+                        str += " " + Result.getResult().expression.get(i);
                     }else {
-                        str += " " + Result.getResult().strExpression.charAt(i) + " ";
+                        str += " " + Result.getResult().expression.get(i) + " ";
                     }
                 }
             }else{
-                str += Result.getResult().strExpression.charAt(i);
+                str += Result.getResult().expression.get(i);
             }
         }
-        Result.getResult().strExpression = str;
 
-        String[] arrExpression = Result.getResult().strExpression.split(" ");
+        String[] arrExpression = str.split(" ");
 
         //Covertimos la entrada en una pila
         for (int i=arrExpression.length-1; i>=0; i--){
@@ -167,10 +176,10 @@ public class Result {
         String a;
         String b;
         switch ( operator) {
-            case "add":case "+":
+            case "plus":case "+":
 
                 return String.format("%.9f", Double.parseDouble(number1) + Double.parseDouble(number2));
-            case "substract":case "-":
+            case "minus":case "-":
 
                 return String.format("%.9f", Double.parseDouble(number1) - Double.parseDouble(number2));
             case "multiply":case "*":
@@ -182,6 +191,30 @@ public class Result {
             case "power":case "^":
 
                 return String.format("%.9f", Math.pow(Double.parseDouble(number1), Double.parseDouble(number2)));
+
+            case "sen":
+
+                return String.format("%.9f", Math.sin(Double.parseDouble(number1)));
+
+            case "cos":
+
+                return String.format("%.9f", Math.cos(Double.parseDouble(number1)));
+
+            case "tan":
+
+                return String.format("%.9f", Math.tan(Double.parseDouble(number1)));
+
+            case "ctg":
+
+                return String.format("%.9f", Math.atan(Double.parseDouble(number1)));
+
+            case "sec":
+
+                return String.format("%.9f", Math.asin(Double.parseDouble(number1)));
+
+            case "csc":
+
+                return String.format("%.9f", Math.acos(Double.parseDouble(number1)));
         }
         return "0";
     }
@@ -194,7 +227,7 @@ public class Result {
 
             int priority = Priority.maxPriority;
 
-            if( element.equals("sen") ){ priority = 5;}
+            if( Result.operatorsTrigonometric.contains( element ) ){ priority = 5;}
             else if( element.equals("^") ){ priority = 5;}
             else if( element.equals("*") || element.equals("/")){ priority = 4;}
             else if( element.equals("+") || element.equals("-")){ priority = 3;}

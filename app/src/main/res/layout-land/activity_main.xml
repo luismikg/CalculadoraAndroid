@@ -190,7 +190,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
-            android:text="COS"
+            android:text="@string/cos"
             android:textSize="24sp"
             android:onClick="onClick"/>
     </LinearLayout>
@@ -247,7 +247,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
-            android:text="TAN"
+            android:text="@string/tan"
             android:textSize="24sp"
             android:onClick="onClick"/>
 
@@ -257,8 +257,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
-            android:text="CTG"
-            android:textSize="24sp" />
+            android:text="@string/ctg"
+            android:textSize="24sp"
+            android:onClick="onClick"/>
 
     </LinearLayout>
 
@@ -304,7 +305,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
-            android:text="SEC"
+            android:text="@string/sec"
             android:textSize="24sp"
             android:onClick="onClick"/>
 
@@ -314,7 +315,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBtnOp"
-            android:text="CSC"
+            android:text="@string/csc"
             android:textSize="24sp"
             android:onClick="onClick"/>
     </LinearLayout>

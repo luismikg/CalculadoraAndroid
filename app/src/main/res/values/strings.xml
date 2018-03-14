@@ -24,9 +24,10 @@
     <string name="power" translatable="false">\^</string>
 
     <string name="sen" translatable="false">sen</string>
-
-
-
-
+    <string name="cos" translatable="false">cos</string>
+    <string name="tan" translatable="false">tan</string>
+    <string name="ctg" translatable="false">ctg</string>
+    <string name="sec" translatable="false">sec</string>
+    <string name="csc" translatable="false">csc</string>
 
 </resources>

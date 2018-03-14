@@ -354,13 +354,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if( newValue.equals( this.getResources().getString(R.string.delete) ) ){
             String elementToRemoved = ExpressionClass.expression.remove( ExpressionClass.expression.size()-1 );
 
-            if( elementToRemoved.length()>1 ){
+            if( elementToRemoved.equals("(") ){
+                if( ExpressionClass.expression.size()>0 ){
+                    String element = ExpressionClass.expression.remove( ExpressionClass.expression.size()-1 );
+                    if( !Result.operatorsTrigonometric.contains(element) ){
+                        ExpressionClass.expression.add( element );
+                    }
+                }
+            }
+            else if( elementToRemoved.length()>1 ){
                 String str = new String();
                 for(int i=0; i<elementToRemoved.length()-1; i++){
                     str = str+elementToRemoved.charAt(i);
                 }
                 ExpressionClass.expression.add( str );
             }
+
             if( ExpressionClass.expression.size()==0 ) {
                 ExpressionClass.expression.add( "0" );
             }
@@ -420,22 +429,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        if( newValue.toLowerCase().equals("sen") ){
+        if( Result.operatorsTrigonometric.contains( newValue.toLowerCase() ) ){
             int size = ExpressionClass.expression.size();
             switch (size){
                 case 1:
                     String lastElement = ExpressionClass.expression.remove(size-1 );
                     if( lastElement.equals("0") ){
                         ExpressionClass.expression.add( newValue );
+                        ExpressionClass.expression.add( "(" );
                     }else {
                         ExpressionClass.expression.add( lastElement );
                         ExpressionClass.expression.add( newValue );
+                        ExpressionClass.expression.add( "(" );
                     }
                     break;
                 default:
                     lastElement = ExpressionClass.expression.remove(size-1 );
                     ExpressionClass.expression.add( lastElement );
                     ExpressionClass.expression.add( newValue );
+                    ExpressionClass.expression.add( "(" );
             }
             return;
         }
@@ -502,7 +514,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String result = ExpressionClass.expression.toString();
         try {
             Result.init();
-            result = Result.getAnswer(ExpressionClass.expression.toString());
+            result = Result.getAnswer( ExpressionClass.expression );
             result = this.depurarResult(result);
             MainActivity.anOperationHasJustBeenDone = true;
             ExpressionClass.expression.clear();
